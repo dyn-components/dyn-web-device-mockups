@@ -1,17 +1,11 @@
 import BaseComponent from "./BaseComponent";
 class WebComponent extends BaseComponent {
-	device: string = "iPhone6Plus";
-	orientation: string = "portrait";
-	color: string = "white";
-	static get observedAttributes(): string[] {
-		return ["device", "orientation", "color"];
-	}
 	constructor() {
 		super();
 
 		let container = document.createElement("div");
 		container.classList.add("dyn-component--web-components", "dyn-device-mockups", "device-wrapper");
-		container.innerHTML = `<div class="device" data-device="${this.device}" data-orientation="portrait" data-color="black">
+		container.innerHTML = `<div class="device" data-device="${this.device}" data-orientation="${this.orientation}" data-color="${this.color}">
     <div class="screen">
       <slot></slot>
     </div>
@@ -47,13 +41,19 @@ class WebComponent extends BaseComponent {
 				}
 				break;
 			}
+			case "mockupsCssUrl": {
+				if (newValue) {
+					this.mockupsCssUrl = newValue!;
+					this.injectStyles();
+				}
+				break
+			}
 		}
 	}
 
 
 	connectedCallback() {
 		super.connectedCallback();
-
 		this.updateDevice();
 	}
 
@@ -68,6 +68,17 @@ class WebComponent extends BaseComponent {
 		if (screenDom) {
 			screenDom.style.backgroundColor = getComputedStyle(this).backgroundColor
 		}
+	}
+
+	protected injectStyles() {
+		super.injectStyles();
+
+		this.shadowRoot?.querySelectorAll("link").forEach(link => link.remove());
+		const deviceMockupsLinkElement = document.createElement('link');
+		deviceMockupsLinkElement.rel = 'stylesheet';
+		deviceMockupsLinkElement.classList.add('device-mockups-css');
+		deviceMockupsLinkElement.href = this.mockupsCssUrl;
+		this.shadowRoot!.appendChild(deviceMockupsLinkElement);
 	}
 }
 

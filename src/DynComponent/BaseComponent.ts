@@ -1,11 +1,16 @@
 import styles from './styles/index.scss?inline'
 class BaseComponent extends HTMLElement {
+  device: string = "iPhone6Plus";
+  orientation: string = "portrait";
+  color: string = "white";
+  mockupsCssUrl: string = "https://cdn.jsdelivr.net/npm/html5-device-mockups@3.2.1/dist/device-mockups.min.css";
+  
   static getBooleanValue(value: any) {
     return !!value && value !== "false";
 
   }
   static get observedAttributes(): string[] {
-    return [];
+    return ["device", "orientation", "color", "mockupsCssUrl"];
   }
   constructor() {
     super();
@@ -30,10 +35,12 @@ class BaseComponent extends HTMLElement {
     return this[key];
   }
 
-  private injectStyles() {
+  protected injectStyles() {
+    this.shadowRoot?.querySelectorAll("style").forEach(style => style.remove());
+
     const style = document.createElement("style");
     style.textContent = `${styles}`;
-    this.shadowRoot!.appendChild(style);
+    this.shadowRoot?.appendChild(style);
   }
 }
 

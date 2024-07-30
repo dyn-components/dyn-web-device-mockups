@@ -4,7 +4,6 @@
 
 开源地址：
 
-
 ## 目录
 
 - [介绍](#介绍)
@@ -62,11 +61,12 @@ import "dyn-components/theme.css";
 
 ## 属性（Props）
 
-| 属性名      | 类型     | 默认值      | 必填 | 描述     |
-| ----------- | -------- | ----------- | ---- | -------- |
-| device      | `string` | iPhone6Plus | N    | 设备名称 |
-| orientation | `string` | portrait    | N    | 设备方向 |
-| color       | `string` | white       | N    | 设备颜色 |
+| 属性名        | 类型     | 默认值                                                                              | 必填 | 描述     |
+| ------------- | -------- | ----------------------------------------------------------------------------------- | ---- | -------- |
+| device        | `string` | iPhone6Plus                                                                         | N    | 设备名称 |
+| orientation   | `string` | portrait                                                                            | N    | 设备方向 |
+| color         | `string` | white                                                                               | N    | 设备颜色 |
+| mockupsCssUrl | `string` | https://cdn.jsdelivr.net/npm/html5-device-mockups@3.2.1/dist/device-mockups.min.css | N    | 设备颜色 |
 
 ### 详细说明
 
